@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
-import { useState, useEffect, useRef } from 'react';
+import PropTypes from "prop-types";
+import { useState, useEffect, useRef } from "react";
 // next
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 //
-import { NavItemRoot, NavItemSub } from './NavItem';
-import { PaperStyle } from './style';
-import { getActive } from '..';
+import { NavItemRoot, NavItemSub } from "./NavItem";
+import { PaperStyle } from "./style";
+import { getActive } from "..";
 
 // ----------------------------------------------------------------------
 
@@ -31,7 +31,6 @@ export function NavListRoot({ list }) {
     if (open) {
       handleClose();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const handleOpen = () => {
@@ -57,8 +56,8 @@ export function NavListRoot({ list }) {
         <PaperStyle
           open={open}
           anchorEl={menuRef.current}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          transformOrigin={{ vertical: "top", horizontal: "left" }}
           PaperProps={{
             onMouseEnter: handleOpen,
             onMouseLeave: handleClose,
@@ -118,8 +117,8 @@ function NavListSub({ list }) {
         <PaperStyle
           open={open}
           anchorEl={menuRef.current}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          transformOrigin={{ vertical: "top", horizontal: "left" }}
           PaperProps={{
             onMouseEnter: handleOpen,
             onMouseLeave: handleClose,
