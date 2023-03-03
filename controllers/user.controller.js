@@ -4,7 +4,7 @@ import User from "../models/user.model";
 import config from "../config/config";
 import Transaction from "../models/transaction.model";
 import sendMail from "../helpers/sendVerificationMail";
-import bcrypt from "bcrypt";
+import bcrypt from "bcrypt-node";
 import emailTemplate from "../helpers/emailTemplate";
 import sampleMailTemplate from "../helpers/sampleMailTemplate";
 import welcomeMail from "../helpers/welcomeMail";
