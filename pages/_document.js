@@ -48,12 +48,16 @@ export default class MyDocument extends Document {
           />
 
           <meta
+            name="title"
+            content=" Invest in US Stocks and ETFs with SharedAsset - Your Global Investment Platform"
+          />
+          <meta
             name="description"
-            content="Pipsville investments, the new way to secure investments,planning and financial freedom"
+            content="SharedAsset is a user-friendly investment platform that allows you to invest in over 3,500 US stocks and ETFs. Our platform is secure and reliable, with bank-level security and SIPC insurance."
           />
           <meta
             name="keywords"
-            content="Pipsvile investment,investment,real-estate,cypto,mining,bitcoin,etherum,withdrawal"
+            content="US stock market,fixed-income investment,brokerage accounts,local investment options,global markets,dollar-denominated mutual funds,investment opportunities,real-time access"
           />
           <meta name="author" content="Pipsville investment limited" />
         </Head>
