@@ -30,7 +30,6 @@
     "eslint-config-next": "^13.2.3",
     "express-fileupload": "^1.4.0",
     "firebase-admin": "^11.4.1",
-    "formidable": "^2.1.1",
     "formik": "^2.2.9",
     "framer-motion": "^8.4.0",
     "highlight.js": "^11.7.0",
