@@ -3,9 +3,7 @@ import {
   attachProfileById,
   verify,
 } from "../../../../controllers/user.controller";
-import { verifyUpload } from "../../../../controllers/picture.controller";
 import database from "../../../../middleware/database";
-import formidable from "../../../../middleware/formidable";
 // import session from '../../../middleware/ironSession';
 
 const handler = nc({
