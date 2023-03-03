@@ -42,17 +42,21 @@ export const createUser = async (req, res) => {
     const token = await jwtSign({ user: savedUser._id }, config.jwtSecret, {
       expiresIn: "30 days",
     });
-    let hostname = req.headers.host;
-    let loginLink = `http://${hostname}/login`;
-    let msg = welcomeMail(userData.firstname, loginLink);
-    const sent = await sendMail(msg, "Welcome to SharedAsset", userData.email);
-    console.log(sent);
-    if (sent) {
-      return res.status(200).json({
-        type: "success",
-        message: "Successfully signed up!",
-      });
-    }
+    // let hostname = req.headers.host;
+    // let loginLink = `http://${hostname}/login`;
+    // let msg = welcomeMail(userData.firstname, loginLink);
+    // const sent = await sendMail(msg, "Welcome to SharedAsset", userData.email);
+    // console.log(sent);
+    // if (sent) {
+    //   return res.status(200).json({
+    //     type: "success",
+    //     message: "Successfully signed up!",
+    //   });
+    // }
+    return res.status(200).json({
+      type: "success",
+      message: "Successfully signed up!",
+    });
   } catch (err) {
     console.log(err.message);
     return res.status(500).json({
