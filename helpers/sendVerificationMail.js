@@ -1,8 +1,13 @@
-import nodemailer from 'nodemailer';
-import config from '../config/config';
+import nodemailer from "nodemailer";
+import config from "../config/config";
 // const mailgun = require('mailgun-js');
 
-console.log('this are the details ', config.password, config.email, config.username);
+console.log(
+  "this are the details ",
+  config.password,
+  config.email,
+  config.username
+);
 let transporter = nodemailer.createTransport({
   host: config.mailServer, //replace with your email provider
   port: Number(config.smtpPort),
@@ -16,9 +21,9 @@ let transporter = nodemailer.createTransport({
 // verify connection configuration
 transporter.verify(function (error, success) {
   if (error) {
-    console.log(error.message, 'verification error');
+    console.log(error.message, "verification error");
   } else {
-    console.log('Server is ready to take our messages', success);
+    console.log("Server is ready to take our messages", success);
   }
 });
 
@@ -26,14 +31,14 @@ const sendMail = async (msg, subject, reciever) => {
   //2. You can configure the object however you want
   try {
     let mail = {
-      from: `"Pipsville" <${config.email}>`,
+      from: `"SharedAsset" <${config.email}>`,
       to: reciever,
       subject: subject,
       html: msg,
     };
     //3.
     let info = await transporter.sendMail(mail);
-    console.log('Message sent: %s', info.messageId);
+    console.log("Message sent: %s", info.messageId);
     return info.messageId;
   } catch (err) {
     console.log(`error sending mail to user ${reciever}`);
