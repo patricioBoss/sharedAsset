@@ -25,23 +25,38 @@ async function handler({ req }) {
       transactionId: { $exists: false },
     }).lean()
   );
-  const stocksListString = pendingInvestments.map((x) => x.stock).join(",");
-  const stocksResponse = await axios.get(
-    `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${stocksListString}`
-  );
-  const stocksDataList = await stocksResponse.data.quoteResponse.result;
 
-  console.log(pendingInvestments);
-  return {
-    props: {
-      user,
-      pendingInvestments,
-      stocksDataList,
-      fallback: {
-        [`/api/user/${user._id}`]: user,
+  if (pendingInvestments.length) {
+    const stocksListString = pendingInvestments.map((x) => x.stock).join(",");
+    const stocksResponse = await axios.get(
+      `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${stocksListString}`
+    );
+    const stocksDataList = await stocksResponse.data.quoteResponse.result;
+
+    console.log(pendingInvestments);
+    return {
+      props: {
+        user,
+        pendingInvestments,
+        stocksDataList,
+        fallback: {
+          [`/api/user/${user._id}`]: user,
+        },
       },
-    },
-  };
+    };
+  } else {
+    return {
+      props: {
+        user,
+        pendingInvestments,
+        stocksDataList: [],
+        fallback: {
+          [`/api/user/${user._id}`]: user,
+        },
+      },
+    };
+  }
+
   // return {
   //   props: { user },
   // };

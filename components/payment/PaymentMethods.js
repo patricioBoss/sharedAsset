@@ -63,23 +63,28 @@ export default function PaymentMethods({ details, user }) {
     //   currency: method,
     // });
     setisSubmitting(true);
-    axios.post(`/api/user/${user._id}/invest`, {
-      ...details,
-      currency: method,
-    });
-    router
-      .push("/dashboard/invest/pending")
+    console.log("the details", details);
+    axios
+      .post(`/api/user/${user._id}/invest`, {
+        ...details,
+        currency: method,
+      })
       .then((res) => {
+        router.push("/dashboard/invest/pending");
         setisSubmitting(false);
       })
-      .catch(() => {
+      .catch((err) => {
         setisSubmitting(false);
-        toast.error("error try again");
+        if (err.response) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error(err.message);
+        }
       });
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-full">
       <Typography variant="subtitle1" sx={{ mb: 3 }}>
         Payment Method
       </Typography>
@@ -115,14 +120,20 @@ export default function PaymentMethods({ details, user }) {
                       {title}
                     </Typography>
                   }
-                  sx={{ py: 3, mx: 0 }}
+                  sx={{
+                    py: {
+                      sm: 2,
+                      md: 3,
+                    },
+                    mx: 0,
+                  }}
                 />
 
                 <Stack
                   spacing={1}
                   direction="row"
                   alignItems="center"
-                  sx={{ position: "absolute", right: 20, top: 32 }}
+                  sx={{ right: 20, top: 32 }}
                 >
                   {icons.map((icon) => (
                     <Image key={icon} alt="logo card" src={icon} />

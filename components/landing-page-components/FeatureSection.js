@@ -138,7 +138,7 @@ export default function FeatureSection() {
 
           <div className="relative -mx-4 mt-10 lg:mt-0" aria-hidden="true">
             <svg
-              className="absolute left-1/2 -translate-x-1/2 translate-y-16 transform lg:hidden"
+              className="absolute left-1/2 -translate-x-1/2 translate-y-16 transform hidden"
               width={784}
               height={404}
               fill="none"
@@ -169,7 +169,7 @@ export default function FeatureSection() {
                 fill="url(#ca9667ae-9f92-4be7-abcb-9e3d727f2941)"
               />
             </svg>
-            <div className="bg-white rounded-[1rem] shadow-lg w-full p-3">
+            <div className="bg-white md:rounded-[1rem] md:shadow-lg w-full p-3">
               <StockMarket width="100%" />
             </div>
           </div>
