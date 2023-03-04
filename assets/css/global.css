@@ -5,6 +5,9 @@
 @tailwind utilities;
 
 @layer components {
+  html {
+    @apply text-[75%] md:text-[100%];
+  }
   * {
     @apply font-body;
   }

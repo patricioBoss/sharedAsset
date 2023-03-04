@@ -4,7 +4,7 @@ import User from "../models/user.model";
 import config from "../config/config";
 import Transaction from "../models/transaction.model";
 import sendMail from "../helpers/sendVerificationMail";
-import bcrypt from "bcrypt-node";
+import bcrypt from "bcrypt";
 import emailTemplate from "../helpers/emailTemplate";
 import sampleMailTemplate from "../helpers/sampleMailTemplate";
 import welcomeMail from "../helpers/welcomeMail";
@@ -34,6 +34,7 @@ export const createUser = async (req, res) => {
   delete userData.confirmPassword;
   try {
     const hash = await bcrypt.hash(userData.password, config.saltRounds);
+    console.log(hash);
     userData.password = hash;
     //save user
     const user = new User(userData);
@@ -58,7 +59,7 @@ export const createUser = async (req, res) => {
       message: "Successfully signed up!",
     });
   } catch (err) {
-    console.log(err.message);
+    console.log("this is the error from register", err);
     return res.status(500).json({
       type: "failure",
       message: err.message,

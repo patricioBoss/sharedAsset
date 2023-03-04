@@ -1,32 +1,32 @@
-import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import PropTypes from "prop-types";
+import { useEffect } from "react";
 // next
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 // @mui
-import { styled, useTheme } from '@mui/material/styles';
-import { Box, Stack, Drawer } from '@mui/material';
+import { styled, useTheme } from "@mui/material/styles";
+import { Box, Stack, Drawer } from "@mui/material";
 // hooks
-import useResponsive from '../../../hooks/useResponsive';
-import useCollapseDrawer from '../../../hooks/useCollapseDrawer';
+import useResponsive from "../../../hooks/useResponsive";
+import useCollapseDrawer from "../../../hooks/useCollapseDrawer";
 // utils
-import cssStyles from '../../../utils/cssStyles';
+import cssStyles from "../../../utils/cssStyles";
 // config
-import { NAVBAR } from '../../../config';
+import { NAVBAR } from "../../../config";
 // components
-import Logo from '../../../components/Logo';
-import Scrollbar from '../../../components/Scrollbar';
-import { NavSectionVertical } from '../../../components/nav-section';
+import Logo from "../../../components/Logo";
+import Scrollbar from "../../../components/Scrollbar";
+import { NavSectionVertical } from "../../../components/nav-section";
 //
-import navConfig from './NavConfig';
-import NavbarAccount from './NavbarAccount';
+import navConfig from "./NavConfig";
+import NavbarAccount from "./NavbarAccount";
 // import CollapseButton from './CollapseButton';
 
 // ----------------------------------------------------------------------
 
-const RootStyle = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('lg')]: {
+const RootStyle = styled("div")(({ theme }) => ({
+  [theme.breakpoints.up("lg")]: {
     flexShrink: 0,
-    transition: theme.transitions.create('width', {
+    transition: theme.transitions.create("width", {
       duration: theme.transitions.duration.shorter,
     }),
   },
@@ -44,7 +44,7 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
 
   const { pathname } = useRouter();
 
-  const isDesktop = useResponsive('up', 'lg');
+  const isDesktop = useResponsive("up", "lg");
 
   const { isCollapse, collapseClick, collapseHover } = useCollapseDrawer();
 
@@ -52,14 +52,17 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
     if (isOpenSidebar) {
       onCloseSidebar();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const renderContent = (
     <Scrollbar
       sx={{
         height: 1,
-        '& .simplebar-content': { height: 1, display: 'flex', flexDirection: 'column' },
+        "& .simplebar-content": {
+          height: 1,
+          display: "flex",
+          flexDirection: "column",
+        },
       }}
     >
       <Stack
@@ -69,10 +72,14 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
           pb: 2,
           px: 2.5,
           flexShrink: 0,
-          ...(isCollapse && { alignItems: 'center' }),
+          ...(isCollapse && { alignItems: "center" }),
         }}
       >
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
           <Logo />
 
           {/* {isDesktop && !isCollapse && (
@@ -95,15 +102,21 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
     <RootStyle
       sx={{
         width: {
-          lg: isCollapse ? NAVBAR.DASHBOARD_COLLAPSE_WIDTH : NAVBAR.DASHBOARD_WIDTH,
+          lg: isCollapse
+            ? NAVBAR.DASHBOARD_COLLAPSE_WIDTH
+            : NAVBAR.DASHBOARD_WIDTH,
         },
         ...(collapseClick && {
-          position: 'absolute',
+          position: "absolute",
         }),
       }}
     >
       {!isDesktop && (
-        <Drawer open={isOpenSidebar} onClose={onCloseSidebar} PaperProps={{ sx: { width: NAVBAR.DASHBOARD_WIDTH } }}>
+        <Drawer
+          open={isOpenSidebar}
+          onClose={onCloseSidebar}
+          PaperProps={{ sx: { width: NAVBAR.DASHBOARD_WIDTH } }}
+        >
           {renderContent}
         </Drawer>
       )}
@@ -117,10 +130,10 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
           PaperProps={{
             sx: {
               width: NAVBAR.DASHBOARD_WIDTH,
-              borderRightStyle: 'solid',
-              bgcolor: 'background.default',
+              borderRightStyle: "solid",
+              bgcolor: "background.default",
               transition: (theme) =>
-                theme.transitions.create('width', {
+                theme.transitions.create("width", {
                   duration: theme.transitions.duration.standard,
                 }),
               ...(isCollapse && {

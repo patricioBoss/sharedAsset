@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt-node";
+import bcrypt from "bcrypt";
 import User from "../models/user.model";
 import response from "../apiUtil/reponses";
 import sendMail from "../helpers/sendVerificationMail";

@@ -53,7 +53,7 @@ export default function AppWelcome({ displayName }) {
 
         <Button
           variant="contained"
-          onClick={() => router.push("/dashboard/invest/plans")}
+          onClick={() => router.push("/dashboard/portfolio")}
         >
           View Stocks
         </Button>

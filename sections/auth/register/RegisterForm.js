@@ -94,6 +94,7 @@ export default function RegisterForm() {
         .post("/api/user", values)
         .then(function () {
           setIsSubmitting(false);
+          toast.success("registration successful");
           router.push("/login");
         })
         .catch(function (err) {
