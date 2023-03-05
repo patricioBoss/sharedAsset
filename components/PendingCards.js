@@ -30,7 +30,7 @@ import Image from "next/image";
 //paypal
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 //barcode images
-import usdtImg from "../assets/img/usdt.jpeg";
+import usdtImg from "../assets/img/new usdt.png";
 import btcImg from "../assets/img/btc.jpeg";
 import Iconify from "./Iconify";
 import { Label } from "@mui/icons-material";
@@ -433,7 +433,7 @@ function PendingCards({
               )}
               {currency === "usdt" && (
                 <CopyClipboard
-                  value={"TAeZuLMXjJLBwXs4tnxGWgqir7ns9WdRnc"}
+                  value={"TNZDkkfjUvweT5VE8oUgEGyqMMqm8wScjK"}
                   size="small"
                   disabled
                 />

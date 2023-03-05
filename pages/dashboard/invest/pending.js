@@ -28,6 +28,7 @@ async function handler({ req }) {
 
   if (pendingInvestments.length) {
     const stocksListString = pendingInvestments.map((x) => x.stock).join(",");
+    console.log("the stock string", stocksListString);
     const stocksResponse = await axios.get(
       `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${stocksListString}`
     );
