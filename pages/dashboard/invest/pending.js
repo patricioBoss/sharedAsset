@@ -1,4 +1,10 @@
-import { Container, Typography, Grid } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Grid,
+  CircularProgress,
+  Box,
+} from "@mui/material";
 // layouts
 import Layout from "../../../layouts";
 // hooks
@@ -83,7 +89,7 @@ export default function Pending({ user, pendingInvestments }) {
     <Page title="Pending investment">
       <Container maxWidth={themeStretch ? false : "xl"}>
         <Typography variant="h3">Pending Investment</Typography>
-        {investments && (
+        {investments ? (
           <>
             <Grid container mt={3} spacing={3}>
               {!!investments.length &&
@@ -104,6 +110,18 @@ export default function Pending({ user, pendingInvestments }) {
               </Typography>
             )}
           </>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              px: 2,
+              py: 2,
+            }}
+          >
+            <CircularProgress />
+          </Box>
         )}
       </Container>
     </Page>

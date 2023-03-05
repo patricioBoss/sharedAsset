@@ -33,7 +33,10 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  maxWidth: "40rem",
+  width: {
+    xs: "90%",
+    md: 400,
+  },
   bgcolor: "background.paper",
   border: "1px solid #cdcdcd",
   borderRadius: ".8rem",
