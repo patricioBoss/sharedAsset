@@ -20,9 +20,9 @@ export const login = async (req, res) => {
     const fetchedUser = await User.findOne({ email }).lean();
     // verify email
     if (!fetchedUser) {
-      return res.status(401).json({
+      return res.status(404).json({
         type: "failure",
-        message: "Invalid Credentials!",
+        message: "Credentials does not exist!",
       });
     } else {
       // check if password match
@@ -31,11 +31,7 @@ export const login = async (req, res) => {
         fetchedUser.password
       );
       if (!isPasswordMatch) {
-        response(res, 401, "Invalid Credentials!");
-        return res.status(401).json({
-          type: "failure",
-          message: "Invalid Credentials!",
-        });
+        return response(res, 401, "Invalid Credentials!");
       }
 
       //checking if is not user is verified
