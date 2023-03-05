@@ -27,6 +27,7 @@ async function handler({ req }) {
         transactionId: { $exists: false },
       }).lean()
     );
+    console.log();
     if (pendingInvestments.length) {
       const uniqueStockString = [
         ...new Set(pendingInvestments.map((x) => x.stock)),
@@ -34,7 +35,7 @@ async function handler({ req }) {
 
       console.log("this is unique stock string", uniqueStockString);
       const stocksResponse = await axios.get(
-        `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${uniqueStockString}`
+        `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${uniqueStockString}`
       );
       const stocksDataList = await stocksResponse.data.quoteResponse.result;
       const stocksDataMap = stocksDataList.reduce((acc, stock) => {
