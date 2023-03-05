@@ -27,19 +27,27 @@ async function handler({ req }) {
   );
 
   if (pendingInvestments.length) {
-    const stocksListString = pendingInvestments.map((x) => x.stock).join(",");
-    console.log("the stock string", stocksListString);
+    const uniqueStockString = [
+      ...new Set(pendingInvestments.map((x) => x.stock)),
+    ].join(",");
     const stocksResponse = await axios.get(
-      `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${stocksListString}`
+      `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${uniqueStockString}`
     );
     const stocksDataList = await stocksResponse.data.quoteResponse.result;
-
+    const stocksDataMap = stocksDataList.reduce((acc, stock) => {
+      acc[stock.symbol] = stock;
+      return acc;
+    }, {});
+    const allPendings = pendingInvestments.map((x) => ({
+      ...x,
+      stock: stocksDataMap[x.stock],
+      plan: plans[x.planId],
+    }));
     console.log(pendingInvestments);
     return {
       props: {
         user,
-        pendingInvestments,
-        stocksDataList,
+        pendingInvestments: allPendings,
         fallback: {
           [`/api/user/${user._id}`]: user,
         },
@@ -50,7 +58,6 @@ async function handler({ req }) {
       props: {
         user,
         pendingInvestments,
-        stocksDataList: [],
         fallback: {
           [`/api/user/${user._id}`]: user,
         },
@@ -74,28 +81,23 @@ Pending.propTypes = {
   pendingInvestments: PropTypes.array,
   stocksDataList: PropTypes.array,
 };
-export default function Pending({ user, pendingInvestments, stocksDataList }) {
+export default function Pending({ user, pendingInvestments }) {
   const { themeStretch } = useSettings();
-  const allPendings = pendingInvestments.map(({ planId, ...rest }, idx) => ({
-    ...rest,
-    stock: stocksDataList[idx],
-    plan: plans[planId],
-  }));
+
   console.log("pending", pendingInvestments);
-  console.log("stock data", stocksDataList);
   return (
     <Page title="Pending investment">
       <Container maxWidth={themeStretch ? false : "xl"}>
         <Typography variant="h3">Pending Investment</Typography>
         <Grid container mt={3} spacing={3}>
-          {!!allPendings.length &&
-            allPendings.map((x) => (
+          {!!pendingInvestments.length &&
+            pendingInvestments.map((x) => (
               <Grid key={x._id} item xs={12} sm={6} md={4}>
                 <PendingCards investment={x} user={user} />
               </Grid>
             ))}
         </Grid>
-        {!allPendings.length && (
+        {!pendingInvestments.length && (
           <Typography
             textAlign={"center"}
             mt={4}
