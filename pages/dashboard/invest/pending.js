@@ -18,51 +18,62 @@ import axios from "axios";
 async function handler({ req }) {
   const user = serializeFields(req.user);
   console.log("this is user", user);
-  const pendingInvestments = serializeFields(
-    await Investment.find({
-      userId: user._id,
-      status: "pending",
-      transactionId: { $exists: false },
-    }).lean()
-  );
 
-  if (pendingInvestments.length) {
-    const uniqueStockString = [
-      ...new Set(pendingInvestments.map((x) => x.stock)),
-    ].join(",");
-    const stocksResponse = await axios.get(
-      `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${uniqueStockString}`
+  try {
+    const pendingInvestments = serializeFields(
+      await Investment.find({
+        userId: user._id,
+        status: "pending",
+        transactionId: { $exists: false },
+      }).lean()
     );
-    const stocksDataList = await stocksResponse.data.quoteResponse.result;
-    const stocksDataMap = stocksDataList.reduce((acc, stock) => {
-      acc[stock.symbol] = stock;
-      return acc;
-    }, {});
-    const allPendings = pendingInvestments.map((x) => ({
-      ...x,
-      stock: stocksDataMap[x.stock],
-      plan: plans[x.planId],
-    }));
-    console.log(pendingInvestments);
-    return {
-      props: {
-        user,
-        pendingInvestments: allPendings,
-        fallback: {
-          [`/api/user/${user._id}`]: user,
+    if (pendingInvestments.length) {
+      const uniqueStockString = [
+        ...new Set(pendingInvestments.map((x) => x.stock)),
+      ].join(",");
+
+      console.log("this is unique stock string", uniqueStockString);
+      const stocksResponse = await axios.get(
+        `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${uniqueStockString}`
+      );
+      const stocksDataList = await stocksResponse.data.quoteResponse.result;
+      const stocksDataMap = stocksDataList.reduce((acc, stock) => {
+        acc[stock.symbol] = stock;
+        return acc;
+      }, {});
+
+      const allPendings = pendingInvestments.map((x) => ({
+        ...x,
+        stock: stocksDataMap[x.stock],
+        plan: plans[x.planId],
+      }));
+      console.log(pendingInvestments);
+      return {
+        props: {
+          user,
+          pendingInvestments: allPendings,
+          fallback: {
+            [`/api/user/${user._id}`]: user,
+          },
         },
-      },
-    };
-  } else {
-    return {
-      props: {
-        user,
-        pendingInvestments,
-        fallback: {
-          [`/api/user/${user._id}`]: user,
+      };
+    } else {
+      return {
+        props: {
+          user,
+          pendingInvestments,
+          fallback: {
+            [`/api/user/${user._id}`]: user,
+          },
         },
-      },
-    };
+      };
+    }
+  } catch (err) {
+    if (err.response) {
+      console.log(err.response.data.message);
+    } else {
+      console.log(err.message);
+    }
   }
 
   // return {
