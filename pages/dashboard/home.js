@@ -137,7 +137,7 @@ export default function Home({
       .then((res) => {
         setLoading(false);
         toast.success(res.data.message);
-        router.push("/dashboard/invest/pending");
+        router.push("/dashboard/invest/pend");
       })
       .catch((err) => {
         // console.log(err.response?.data.message);

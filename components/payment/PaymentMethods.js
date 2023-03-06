@@ -70,7 +70,7 @@ export default function PaymentMethods({ details, user }) {
         currency: method,
       })
       .then((res) => {
-        router.push("/dashboard/invest/pending");
+        router.push("/dashboard/invest/pend");
         setisSubmitting(false);
       })
       .catch((err) => {

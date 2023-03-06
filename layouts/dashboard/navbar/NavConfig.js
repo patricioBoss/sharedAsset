@@ -37,7 +37,7 @@ const sidebarConfig = [
         path: "/dashboard/invest",
         children: [
           { title: "Investments", path: "/dashboard/invest/all" },
-          { title: "Pending Invt.", path: "/dashboard/invest/pending" },
+          { title: "Pending Invt.", path: "/dashboard/invest/pend" },
         ],
         icon: ICONS.analytics,
       },
