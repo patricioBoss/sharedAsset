@@ -11,7 +11,7 @@ import useSettings from "../../hooks/useSettings";
 import Page from "../../components/Page";
 // sections
 import PortfolioTable from "../../components/PortfolioTable";
-import { AppWelcome, AppWidgetSummary } from "../../sections/@dashboard/app";
+import { AppWelcome } from "../../sections/@dashboard/app";
 import serializeFields from "../../helpers/serialize";
 import PropTypes from "prop-types";
 import Withdrawal from "../../models/withdrawal.model";
@@ -81,7 +81,7 @@ async function handler({ req }) {
   // withdrawalList.map(list=>())
   const stocksListString = Object.keys(stocks).join(",");
   const stocksResponse = await axios.get(
-    `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${stocksListString}`
+    `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${stocksListString}`
   );
   const stocksData = await stocksResponse.data;
 

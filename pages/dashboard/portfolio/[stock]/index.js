@@ -32,7 +32,7 @@ async function handler(context) {
     };
   }
   const stockResponse = await axios.get(
-    `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${stockSymbol}`
+    `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${stockSymbol}`
   );
   const quoteResponse = await axios.get(
     `https://query1.finance.yahoo.com/v8/finance/chart/${stockSymbol}?metrics=high&interval=30m&range=5d`

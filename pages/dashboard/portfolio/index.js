@@ -19,7 +19,7 @@ async function handler({ req }) {
   const user = serializeFields(req.user);
   const stocksListString = Object.keys(stocks).join(",");
   const stocksResponse = await axios.get(
-    `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${stocksListString}`
+    `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${stocksListString}`
   );
   const stocksDataList = await stocksResponse.data.quoteResponse.result;
 

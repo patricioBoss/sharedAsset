@@ -14,7 +14,7 @@ const nextConfig = {
         //     key: "symbols",
         //   },
         // ],
-        destination: "https://query1.finance.yahoo.com/v7/finance/:path*",
+        destination: "https://query1.finance.yahoo.com/v6/finance/:path*",
       },
     ];
   },

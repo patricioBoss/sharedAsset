@@ -32,7 +32,7 @@ async function handler({ req }) {
     ...new Set(allInvestments.map((x) => x.stock)),
   ].join(",");
   const stocksResponse = await axios.get(
-    `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${
+    `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${
       uniqueStockString ? uniqueStockString : "NONE"
     }`
   );
@@ -41,6 +41,7 @@ async function handler({ req }) {
     acc[stock.symbol] = stock;
     return acc;
   }, {});
+  console.log("stocksDataMap", stocksDataMap);
   const investmentsWithStockData = allInvestments.map((x) => ({
     ...x,
     stock: stocksDataMap[x.stock],
@@ -49,7 +50,7 @@ async function handler({ req }) {
   return {
     props: {
       user,
-      allInvestments: investmentsWithStockData,
+      allInvestments: serializeFields(investmentsWithStockData),
       fallback: {
         [`/api/user/${user._id}`]: user,
       },
@@ -143,7 +144,7 @@ export default function AllInvestments({ user, allInvestments }) {
         ...new Set(fetchedInvestments.map((x) => x.stock)),
       ].join(",");
       const stocksResponse = await axios.get(
-        `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${
+        `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${
           uniqueStockString ? uniqueStockString : "NONE"
         }`
       );
