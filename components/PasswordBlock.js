@@ -20,7 +20,7 @@ function PasswordBlock({ user, url }) {
       .min(5, "must have atleast 5 char long")
       .required("Password is required"),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
       .required(),
   });
 
