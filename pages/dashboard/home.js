@@ -80,15 +80,20 @@ async function handler({ req }) {
   console.log(totalEarnings, allApprovedInvestment, withdrawalList);
   // withdrawalList.map(list=>())
   const stocksListString = Object.keys(stocks).join(",");
-  const stocksResponse = await axios.get(
-    `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${stocksListString}`
-  );
-  const stocksData = await stocksResponse.data;
+  const stocksResponse = await axios({
+    baseURL: process.env.NEXT_PUBLIC_IMAGE_SERVER,
+    method: "GET",
+    url: "/yahooapi/quotes",
+    params: {
+      symbols: stocksListString,
+    },
+  });
+  const stocksDataList = await stocksResponse.data.data;
 
   return {
     props: {
       user,
-      stocksData: stocksData.quoteResponse.result,
+      stocksData: stocksDataList,
       withdrawalList,
       totalWithdrawal: totalWithdrawal.length
         ? totalWithdrawal[0].totalWithdrawal

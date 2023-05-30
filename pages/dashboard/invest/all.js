@@ -31,17 +31,21 @@ async function handler({ req }) {
   const uniqueStockString = [
     ...new Set(allInvestments.map((x) => x.stock)),
   ].join(",");
-  const stocksResponse = await axios.get(
-    `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${
-      uniqueStockString ? uniqueStockString : "NONE"
-    }`
-  );
-  const stocksDataList = await stocksResponse.data.quoteResponse.result;
+  const stocksResponse = await axios({
+    baseURL: process.env.NEXT_PUBLIC_IMAGE_SERVER,
+    method: "GET",
+    url: "/yahooapi/quotes",
+    params: {
+      symbols: uniqueStockString ? uniqueStockString : "NONE",
+    },
+  });
+  const stocksDataList = await stocksResponse.data.data;
   const stocksDataMap = stocksDataList.reduce((acc, stock) => {
     acc[stock.symbol] = stock;
     return acc;
   }, {});
   console.log("stocksDataMap", stocksDataMap);
+  console.log("allInvestments", allInvestments);
   const investmentsWithStockData = allInvestments.map((x) => ({
     ...x,
     stock: stocksDataMap[x.stock],
@@ -143,14 +147,16 @@ export default function AllInvestments({ user, allInvestments }) {
       const uniqueStockString = [
         ...new Set(fetchedInvestments.map((x) => x.stock)),
       ].join(",");
-      const stocksResponse = await axios.get(
-        `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${
-          uniqueStockString ? uniqueStockString : "NONE"
-        }`
-      );
-
-      const stocksDataList = await stocksResponse.data.quoteResponse.result;
-      console.log("stocksDataList", stocksDataList);
+      const stocksResponse = await axios({
+        baseURL: process.env.NEXT_PUBLIC_IMAGE_SERVER,
+        method: "GET",
+        url: "/yahooapi/quotes",
+        params: {
+          symbols: uniqueStockString ? uniqueStockString : "NONE",
+        },
+      });
+      const stocksDataList = await stocksResponse.data.data;
+      console.log("stocksDataList", { stocksDataList });
       const stocksDataMap = stocksDataList.reduce((acc, stock) => {
         acc[stock.symbol] = stock;
         return acc;

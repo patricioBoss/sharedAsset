@@ -31,14 +31,19 @@ async function handler(context) {
       },
     };
   }
-  const stockResponse = await axios.get(
-    `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${stockSymbol}`
-  );
+  const stocksResponse = await axios({
+    baseURL: process.env.NEXT_PUBLIC_IMAGE_SERVER,
+    method: "GET",
+    url: "/yahooapi/quotes",
+    params: {
+      symbols: stockSymbol,
+    },
+  });
   const quoteResponse = await axios.get(
     `https://query1.finance.yahoo.com/v8/finance/chart/${stockSymbol}?metrics=high&interval=30m&range=5d`
   );
 
-  const stockData = await stockResponse.data.quoteResponse.result[0];
+  const stockData = await await stocksResponse.data.data[0];
   const quoteData = {
     timestamp: await quoteResponse.data.chart.result[0].timestamp,
     quotes: await quoteResponse.data.chart.result[0].indicators.quote[0],

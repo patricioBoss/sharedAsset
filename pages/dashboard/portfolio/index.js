@@ -18,10 +18,15 @@ import StocksCard from "../../../components/stocksCard";
 async function handler({ req }) {
   const user = serializeFields(req.user);
   const stocksListString = Object.keys(stocks).join(",");
-  const stocksResponse = await axios.get(
-    `https://query1.finance.yahoo.com/v6/finance/quote?symbols=${stocksListString}`
-  );
-  const stocksDataList = await stocksResponse.data.quoteResponse.result;
+  const stocksResponse = await axios({
+    baseURL: process.env.NEXT_PUBLIC_IMAGE_SERVER,
+    method: "GET",
+    url: "/yahooapi/quotes",
+    params: {
+      symbols: stocksListString,
+    },
+  });
+  const stocksDataList = await stocksResponse.data.data;
 
   const stockListArray = Object.keys(stocks).map((symbol) =>
     axios.get(
