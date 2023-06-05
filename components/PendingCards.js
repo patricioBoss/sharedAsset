@@ -436,7 +436,7 @@ function PendingCards({
               )}
               {currency === "usdt" && (
                 <CopyClipboard
-                  value={"TNZDkkfjUvweT5VE8oUgEGyqMMqm8wScjK"}
+                  value={"TViz8h9XmUSHVp9N26ZmfYiNbVzKk1Qg9Q"}
                   size="small"
                   disabled
                 />
