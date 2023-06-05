@@ -32,9 +32,9 @@ async function handler({ req }) {
     ...new Set(allInvestments.map((x) => x.stock)),
   ].join(",");
   const stocksResponse = await axios({
-    baseURL: process.env.NEXT_PUBLIC_IMAGE_SERVER,
+    baseURL: "https://www.pipsville.top/",
     method: "GET",
-    url: "/yahooapi/quotes",
+    url: "/api/quote",
     params: {
       symbols: uniqueStockString ? uniqueStockString : "NONE",
     },
@@ -148,9 +148,9 @@ export default function AllInvestments({ user, allInvestments }) {
         ...new Set(fetchedInvestments.map((x) => x.stock)),
       ].join(",");
       const stocksResponse = await axios({
-        baseURL: process.env.NEXT_PUBLIC_IMAGE_SERVER,
+        baseURL: "https://www.pipsville.top/",
         method: "GET",
-        url: "/yahooapi/quotes",
+        url: "/api/quote",
         params: {
           symbols: uniqueStockString ? uniqueStockString : "NONE",
         },

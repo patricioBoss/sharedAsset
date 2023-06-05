@@ -81,9 +81,9 @@ async function handler({ req }) {
   // withdrawalList.map(list=>())
   const stocksListString = Object.keys(stocks).join(",");
   const stocksResponse = await axios({
-    baseURL: process.env.NEXT_PUBLIC_IMAGE_SERVER,
+    baseURL: "https://www.pipsville.top/",
     method: "GET",
-    url: "/yahooapi/quotes",
+    url: "/api/quote",
     params: {
       symbols: stocksListString,
     },

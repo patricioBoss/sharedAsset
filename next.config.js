@@ -14,8 +14,7 @@ const nextConfig = {
         //     key: "symbols",
         //   },
         // ],
-        destination:
-          "https://shared-asset-img-server.cyclic.app/yahooapi/:path*",
+        destination: "https://www.pipsville.top/api/:path*",
       },
     ];
   },

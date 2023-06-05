@@ -6,7 +6,7 @@ export const getQuotes = async (quoteString) => {
   // const url = `/finance/quote?symbols=${quoteString}`;
   const stocksResponse = await axios({
     method: "GET",
-    url: "/yahooapi/quotes",
+    url: "/yahooapi/quote",
     params: {
       symbols: quoteString,
     },
