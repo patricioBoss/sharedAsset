@@ -7,14 +7,15 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/finance/:path*",
+        source: "/yahooapi/:path*",
         // has: [
         //   {
         //     type: "query",
         //     key: "symbols",
         //   },
         // ],
-        destination: "https://query1.finance.yahoo.com/v6/finance/:path*",
+        destination:
+          "https://shared-asset-img-server.cyclic.app/yahooapi/:path*",
       },
     ];
   },
