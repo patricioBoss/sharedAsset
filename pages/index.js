@@ -11,6 +11,7 @@ import { CallToAction } from "../components/landing-page-components/CallToAction
 import { Reviews } from "../components/landing-page-components/Reviews.js";
 import SideMessage from "../components/landing-page-components/SideMessage.js";
 import Footer from "../components/landing-page-components/Footer.js";
+
 const TickerTape = dynamic(
   () => import("react-ts-tradingview-widgets").then((w) => w.TickerTape),
   {
