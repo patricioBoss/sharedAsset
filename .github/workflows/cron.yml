@@ -6,6 +6,6 @@ jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - name: Call our automated rio
+      - name: Call our automated rio route
         run: |
           curl 'https://www.getsharedasset.com/api/automateInvestmentRio'
